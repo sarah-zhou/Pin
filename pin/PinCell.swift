@@ -22,16 +22,16 @@ class PinCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         ivPin = UIImageView()
-        ivPin.frame = CGRect(x: 6, y: 6, width: 90, height: 90)
-        contentView.addSubview(pinNameLabel)
+        ivPin.frame = CGRect(x: 4, y: 2, width: 90, height: 90)
+        contentView.addSubview(ivPin)
         
         pinNameLabel = UILabel()
-        pinNameLabel.frame = CGRect(x: 104, y: 6, width: 271, height: 21)
+        pinNameLabel.frame = CGRect(x: 104, y: 10, width: 271, height: 21)
         pinNameLabel.textColor = UIColor.blackColor()
         contentView.addSubview(pinNameLabel)
         
         descriptionLabel = UILabel()
-        descriptionLabel.frame = CGRect(x: 104, y: 28, width: 271, height: 68)
+        descriptionLabel.frame = CGRect(x: 104, y: 20, width: 271, height: 68)
         descriptionLabel.textColor = UIColor.blackColor()
         contentView.addSubview(descriptionLabel)
         
