@@ -8,6 +8,7 @@ target 'pin' do
   # Pods for pin
   pod 'AFNetworking'
   pod 'Parse'
+  pod 'ParseUI'
   pod 'MBProgressHUD'
 
   target 'pinTests' do

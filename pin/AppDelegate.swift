@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = WelcomeViewController()
         
+        User.registerSubclass()
+        
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.
         // clientKey is not used on Parse open source unless explicitly configured
@@ -28,6 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "http://pin-hackfest.herokuapp.com/parse"
             })
         )
+        
+        if let _ = PFUser.currentUser() {
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            self.window?.rootViewController = MapViewController()
+            self.window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 
