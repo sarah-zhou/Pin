@@ -10,6 +10,7 @@
 		3E0338361D31784900F8E7A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0338351D31784900F8E7A5 /* User.swift */; };
 		3E0338381D31785400F8E7A5 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0338371D31785400F8E7A5 /* Pin.swift */; };
 		3E03383A1D31793700F8E7A5 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0338391D31793700F8E7A5 /* CreateViewController.swift */; };
+		3E03383C1D3186AE00F8E7A5 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03383B1D3186AE00F8E7A5 /* UIColor+CustomColors.swift */; };
 		3EC895971D31746300C83C4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC895961D31746300C83C4B /* AppDelegate.swift */; };
 		3EC8959C1D31746300C83C4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EC8959A1D31746300C83C4B /* Main.storyboard */; };
 		3EC8959E1D31746300C83C4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EC8959D1D31746300C83C4B /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		3E0338351D31784900F8E7A5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3E0338371D31785400F8E7A5 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		3E0338391D31793700F8E7A5 /* CreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		3E03383B1D3186AE00F8E7A5 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		3EC895931D31746300C83C4B /* pin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EC895961D31746300C83C4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EC8959B1D31746300C83C4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		3E03383D1D3186B200F8E7A5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3E03383B1D3186AE00F8E7A5 /* UIColor+CustomColors.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
 		3EC8958A1D31746300C83C4B = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +163,7 @@
 		3EC895951D31746300C83C4B /* pin */ = {
 			isa = PBXGroup;
 			children = (
+				3E03383D1D3186B200F8E7A5 /* Extension */,
 				3E0338341D31782F00F8E7A5 /* Model */,
 				3E0338331D3177FE00F8E7A5 /* ViewController */,
 				3EC895961D31746300C83C4B /* AppDelegate.swift */,
@@ -470,6 +481,7 @@
 				3E03383A1D31793700F8E7A5 /* CreateViewController.swift in Sources */,
 				3EC895CD1D3177A300C83C4B /* LoginViewController.swift in Sources */,
 				3EC895CF1D3177B500C83C4B /* SignUpViewController.swift in Sources */,
+				3E03383C1D3186AE00F8E7A5 /* UIColor+CustomColors.swift in Sources */,
 				3EC895C91D31771B00C83C4B /* SearchViewController.swift in Sources */,
 				3E0338381D31785400F8E7A5 /* Pin.swift in Sources */,
 				3EC895CB1D31779400C83C4B /* WelcomeViewController.swift in Sources */,
