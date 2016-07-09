@@ -34,10 +34,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         logo.frame = CGRect(x: 148, y: 95, width: 80, height: 80)
         usernameField.frame = CGRect(x: 25, y: 220, width: 320, height: 30)
-        passwordField.frame = CGRect(x: 25, y: 320, width: 320, height: 30)
-        confirmPasswordField.frame = CGRect(x: 25, y: 370, width: 320, height: 30)
+        passwordField.frame = CGRect(x: 25, y: 270, width: 320, height: 30)
+        confirmPasswordField.frame = CGRect(x: 25, y: 320, width: 320, height: 30)
         
-        invalidLabel.frame = CGRect(x: 0, y: 420, width: 375, height: 40)
+        invalidLabel.frame = CGRect(x: 0, y: 370, width: 375, height: 40)
         
         loginButton.frame = CGRect(x: 35, y: 567, width: 300, height: 30)
         signUpButton.frame = CGRect(x: 0, y: 607, width: 375, height: 60)
@@ -58,6 +58,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         passwordField.delegate = self
         confirmPasswordField.delegate = self
         
+        usernameField.autocapitalizationType = UITextAutocapitalizationType.None
+        usernameField.autocorrectionType = .No
+        passwordField.autocapitalizationType = UITextAutocapitalizationType.None
+        passwordField.autocorrectionType = .No
+        confirmPasswordField.autocapitalizationType = UITextAutocapitalizationType.None
+        confirmPasswordField.autocorrectionType = .No
+        
         signUpButton.backgroundColor = UIColor.cyan()
         signUpButton.setTitle("SIGNUP", forState: UIControlState.Normal)
         signUpButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -66,7 +73,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         loginButton.setTitleColor(UIColor.darkGray(), forState: UIControlState.Normal)
         
         invalidLabel.text = "Email address already has an existing account"
-        invalidLabel.backgroundColor = UIColor.redColor()
+        invalidLabel.backgroundColor = UIColor.deepOrange()
         invalidLabel.textColor = UIColor.whiteColor()
         invalidLabel.textAlignment = NSTextAlignment.Center
         invalidLabel.hidden = true

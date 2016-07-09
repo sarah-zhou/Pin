@@ -15,7 +15,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var mapView = MKMapView()
     var locationManager: CLLocationManager!
     var userLocation: CLLocationCoordinate2D!
-
     
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)

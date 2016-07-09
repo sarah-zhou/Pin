@@ -51,7 +51,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameField.delegate = self
         passwordField.delegate = self
         
-        invalidLabel.backgroundColor = UIColor.redColor()
+        usernameField.autocapitalizationType = UITextAutocapitalizationType.None
+        usernameField.autocorrectionType = .No
+        passwordField.autocapitalizationType = UITextAutocapitalizationType.None
+        passwordField.autocorrectionType = .No
+        
+        invalidLabel.backgroundColor = UIColor.deepOrange()
         invalidLabel.textColor = UIColor.whiteColor()
         invalidLabel.textAlignment = NSTextAlignment.Center
         invalidLabel.hidden = true
