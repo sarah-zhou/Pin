@@ -13,6 +13,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     var logo = UIImageView()
     var usernameField = UITextField()
+    var nameField = UITextField()
     var passwordField = UITextField()
     var confirmPasswordField = UITextField()
     var loginButton = UIButton()
@@ -34,9 +35,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         logo.frame = CGRect(x: 148, y: 95, width: 80, height: 80)
         usernameField.frame = CGRect(x: 25, y: 220, width: 320, height: 30)
-        passwordField.frame = CGRect(x: 25, y: 270, width: 320, height: 30)
-        confirmPasswordField.frame = CGRect(x: 25, y: 320, width: 320, height: 30)
-        
+        nameField.frame = CGRect(x: 25, y: 270, width: 320, height: 30)
+        passwordField.frame = CGRect(x: 25, y: 320, width: 320, height: 30)
+        confirmPasswordField.frame = CGRect(x: 25, y: 370, width: 320, height: 30)
         invalidLabel.frame = CGRect(x: 0, y: 370, width: 375, height: 40)
         
         loginButton.frame = CGRect(x: 35, y: 567, width: 300, height: 30)
@@ -45,21 +46,26 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         logo.image = UIImage(named: "logo")
         
         usernameField.placeholder = "USERNAME"
+        nameField.placeholder = "NAME"
         passwordField.placeholder = "PASSWORD"
         confirmPasswordField.placeholder = "CONFIRM PASSWORD"
         passwordField.secureTextEntry = true
         confirmPasswordField.secureTextEntry = true
         
         usernameField.font = usernameField.font?.fontWithSize(16.0)
+        nameField.font = nameField.font?.fontWithSize(16.0)
         passwordField.font = passwordField.font?.fontWithSize(16.0)
         confirmPasswordField.font = confirmPasswordField.font?.fontWithSize(16.0)
         
         usernameField.delegate = self
+        nameField.delegate = self
         passwordField.delegate = self
         confirmPasswordField.delegate = self
         
         usernameField.autocapitalizationType = UITextAutocapitalizationType.None
         usernameField.autocorrectionType = .No
+        nameField.autocapitalizationType = UITextAutocapitalizationType.None
+        nameField.autocorrectionType = .No
         passwordField.autocapitalizationType = UITextAutocapitalizationType.None
         passwordField.autocorrectionType = .No
         confirmPasswordField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -83,6 +89,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(logo)
         view.addSubview(usernameField)
+        view.addSubview(nameField)
         view.addSubview(passwordField)
         view.addSubview(confirmPasswordField)
         view.addSubview(loginButton)
@@ -95,6 +102,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         if usernameField.text == "" {
             invalidLabel.text = "Username is required"
             invalidLabel.hidden = false
+        } else if nameField.text == "" {
+            invalidLabel.text = "Full name is required"
+            invalidLabel.hidden = false
         } else if passwordField.text == "" {
             invalidLabel.text = "Password is required"
             invalidLabel.hidden = false
@@ -106,11 +116,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             invalidLabel.hidden = false
         } else {
             // initialize a user object
-            let newUser = PFUser()
+            let newUser = User()
             
             // set user properties
             newUser.username = usernameField.text
+            newUser.name = nameField.text
             newUser.password = passwordField.text
+            newUser.bio = ""
             
             // call sign up function on the object
             newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
