@@ -24,6 +24,8 @@
 		3EC895CD1D3177A300C83C4B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC895CC1D3177A300C83C4B /* LoginViewController.swift */; };
 		3EC895CF1D3177B500C83C4B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC895CE1D3177B500C83C4B /* SignUpViewController.swift */; };
 		BC0FEA97519C039DC3CD0F40 /* Pods_pin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F5D1F495063B5B4A439A12 /* Pods_pin.framework */; };
+		BF5B70961D3183540037D187 /* PinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5B70951D3183540037D187 /* PinCell.swift */; };
+		BF5B70D41D31B9F70037D187 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5B70D31D31B9F70037D187 /* DetailViewController.swift */; };
 		CC9A5E93B42B0F0AE9DEDF39 /* Pods_pinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992FB11F0173F6E9F5F084A6 /* Pods_pinTests.framework */; };
 		EAC96C51AE038AD666930093 /* Pods_pinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 835A6335D9684C5CFC26C5E0 /* Pods_pinUITests.framework */; };
 /* End PBXBuildFile section */
@@ -75,6 +77,8 @@
 		992FB11F0173F6E9F5F084A6 /* Pods_pinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19A5294FB257B686C9D8C3D /* Pods-pinUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pinUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pinUITests/Pods-pinUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B29221525708E8E4A3D9D4CF /* Pods-pinUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pinUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pinUITests/Pods-pinUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BF5B70951D3183540037D187 /* PinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinCell.swift; sourceTree = "<group>"; };
+		BF5B70D31D31B9F70037D187 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DA9F1FDDB2A1CF24CA71851A /* Pods-pinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pinTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-pinTests/Pods-pinTests.release.xcconfig"; sourceTree = "<group>"; };
 		F7A5B8C8EE4F4517EC15970F /* Pods-pin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pin.release.xcconfig"; path = "Pods/Target Support Files/Pods-pin/Pods-pin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,11 +116,13 @@
 			children = (
 				3E0338391D31793700F8E7A5 /* CreateViewController.swift */,
 				3EC895C41D3176E900C83C4B /* ProfileViewController.swift */,
+				BF5B70951D3183540037D187 /* PinCell.swift */,
 				3EC895CA1D31779300C83C4B /* WelcomeViewController.swift */,
 				3EC895CC1D3177A300C83C4B /* LoginViewController.swift */,
 				3EC895CE1D3177B500C83C4B /* SignUpViewController.swift */,
 				3EC895C81D31771B00C83C4B /* SearchViewController.swift */,
 				3EC895C61D31770600C83C4B /* MapViewController.swift */,
+				BF5B70D31D31B9F70037D187 /* DetailViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -478,6 +484,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF5B70D41D31B9F70037D187 /* DetailViewController.swift in Sources */,
+				BF5B70961D3183540037D187 /* PinCell.swift in Sources */,
 				3E03383A1D31793700F8E7A5 /* CreateViewController.swift in Sources */,
 				3EC895CD1D3177A300C83C4B /* LoginViewController.swift in Sources */,
 				3EC895CF1D3177B500C83C4B /* SignUpViewController.swift in Sources */,
