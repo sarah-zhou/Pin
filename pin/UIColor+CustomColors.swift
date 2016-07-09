@@ -21,7 +21,7 @@ extension UIColor {
     }
     
     class func deepOrange() -> UIColor {
-        let deepOrange = 0xE64A19
+        let deepOrange = 0xff5724
         return UIColor.fromRgbHex(deepOrange)
     }
     

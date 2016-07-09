@@ -66,7 +66,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         loginButton.setTitleColor(UIColor.darkGray(), forState: UIControlState.Normal)
         
         invalidLabel.text = "Email address already has an existing account"
-        invalidLabel.backgroundColor = UIColor.redColor()
+        invalidLabel.backgroundColor = UIColor.deepOrange()
         invalidLabel.textColor = UIColor.whiteColor()
         invalidLabel.textAlignment = NSTextAlignment.Center
         invalidLabel.hidden = true
