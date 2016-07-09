@@ -10,5 +10,8 @@ import UIKit
 import Parse
 
 class User: PFUser {
-
+    
+    var profilePic: PFFile?
+    var bio: String?
+    var pins: [Pin]?
 }
