@@ -7,7 +7,30 @@
 //
 
 import UIKit
+import MapKit
 
-class Pin: NSObject {
+class Pin: NSObject, MKAnnotation {
+
+    var title: String!
+    var locationName: String
+    var discipline: String
+    var coordinate: CLLocationCoordinate2D
+    
+    init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D) {
+        self.title = title
+        self.locationName = locationName
+        self.discipline = discipline
+        self.coordinate = coordinate
+        
+        super.init()
+    }
+    
+    var subtitle: String! {
+        return locationName
+    }
+    
+    
+    var photo: UIImage!
+    
 
 }
