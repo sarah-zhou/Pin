@@ -144,21 +144,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupTabBarController() {
-        let tabBar = UITabBarController()
-        
-        let search = SearchViewController()
-        let map = MapViewController()
-        let profile = ProfileViewController()
-        
-        search.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home"), tag: 0)
-        map.tabBarItem = UITabBarItem(title: "Map", image: UIImage(named: "map"), tag: 1)
-        profile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), tag: 4)
-        
-        let vcs = [search, map, profile]
-        tabBar.viewControllers = vcs
-        tabBar.modalPresentationStyle = .FullScreen
-        tabBar.modalTransitionStyle = .CoverVertical
-        self.presentViewController(tabBar, animated: true, completion: nil)
+        let appDelegate = AppDelegate()
+        self.presentViewController(appDelegate.tabBar!, animated: true, completion: nil)
     }
 
     
