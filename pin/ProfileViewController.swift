@@ -20,6 +20,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     var cell = PinCell()
     var editButton = UIButton()
     
+    
+    var posts = [PFObject]()
+    var post: PFObject!
+    
+    
     let cellReuseIdendifier = "pinCell"
     
     var user : User?
@@ -32,12 +37,24 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         self.user = User.currentUser()
         self.navigationController?.navigationBarHidden = true
         
+        fetchPins { (success: Bool, error: NSError?) in
+            print(self.posts)
+        }
+        
         setUpViews()
         loadData()
     }
     
     func viewDidAppear() {
         loadData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchPins { (success: Bool, error: NSError?) in
+            print(self.posts)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -101,23 +118,69 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdendifier, forIndexPath: indexPath) as! PinCell
-        let details = data[indexPath.row].componentsSeparatedByString(", ")
-        cell.pinNameLabel.text = details.first
-        cell.descriptionLabel.text = details.last
-        cell.ivPin.image = UIImage (named:"logo")
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("pinCell", forIndexPath: indexPath) as! PinCell
+        if posts.count != 0 {
+            let post = posts[indexPath.row] as! PFObject
+            print("displaying post")
+            print(post)
+            
+            cell.pinNameLabel.text = post["title"] as! String
+            cell.descriptionLabel.text = post["description"] as! String
+            
+            let parsedImage = post["media"] as? PFFile
+            cell.ivPin.file = parsedImage
+            cell.ivPin.loadInBackground()
+            
+        }
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return posts.count
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("ShowDetailVC", sender: nil)
     }
+    
+    
+    func fetchPins(withCompletion completion: PFBooleanResultBlock?) {
+        
+        let pinQuery = PFQuery(className: "Pin")
+        //pinQuery.whereKey("username", equalTo: (PFUser.currentUser()?.username)!)
+        //(user!.username)!
+        //PFUser.currentUser()
+        pinQuery.findObjectsInBackgroundWithBlock {
+            (posts: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                // The find succeeded.
+                print("Successful query for pins")
+                
+                print(posts)
+                if let posts = posts {
+                    self.posts = posts
+                    self.tablePins.reloadData()
+                    
+                }
+                else {
+                    print(error?.localizedDescription)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tablePins.reloadData()
+                })
+                
+            }
+            else {
+                // Log details of the failure
+                print("Error: \(error)")
+            }
+        }
+    }
+
+    
+    
     
     func editProfile() {
         // self.presentViewController(self.navigationVC, animated: true, completion: nil)
@@ -126,6 +189,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         vc.modalTransitionStyle = .CoverVertical
         self.presentViewController(vc, animated: true, completion: nil)
     }
+    
     
     
     /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
