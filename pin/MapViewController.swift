@@ -35,8 +35,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         view.addSubview(pinButton)
         
         locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
         
         // user activated automatic authorization info mode
         var status = CLLocationManager.authorizationStatus()
@@ -81,10 +81,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        var annotations = [mapView.userLocation, view.annotation!]
+        mapView.showAnnotations(annotations, animated: true)
+    }
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
         userLocation = newLocation.coordinate
-        //print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
+        print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
         
     }
     
