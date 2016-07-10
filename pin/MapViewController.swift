@@ -69,6 +69,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+            if let userLocation = locationManager.location?.coordinate {
+                //userLocation = locationManager.location!.coordinate
+                
+                //mapview setup to show user location
+                
+                let region = MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1))
+                mapView.setRegion(region, animated: false)
+                
+                mapView.delegate = self
+                mapView.showsUserLocation = true
+                mapView.mapType = MKMapType(rawValue: 0)!
+                mapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
+            }
+        }
+    }
+    
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
             if CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion.self) {
