@@ -146,12 +146,17 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         } else {
             profilePic.image = UIImage(named: "defaultProfilePic")
         }
-        
-        nameField.text = user!["name"] as! String
+        if user!["name"] != nil {
+            nameField.text = user!["name"] as! String
+        }
         usernameLabel.text = user!["username"] as! String
         usernameLabel.textColor = UIColor.lightGrayColor()
-        bioField.text = user!["bio"] as! String
-        emailField.text = user!["mail"] as! String
+        if user!["bio"] != nil {
+            bioField.text = user!["bio"] as! String
+        }
+        if user!["mail"] != nil {
+            emailField.text = user!["mail"] as! String
+        }
     }
     
     override func didReceiveMemoryWarning() {

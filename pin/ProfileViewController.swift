@@ -90,11 +90,14 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             imageView.image = UIImage(named: "defaultProfilePic")
         }
-        
-        nameLabel.text = user!["name"] as! String
+        if user!["name"] != nil {
+            nameLabel.text = user!["name"] as! String
+        }
         usernameLabel.text = user!["username"] as! String
         usernameLabel.textColor = UIColor.lightGrayColor()
-        bioLabel.text = user!["bio"] as! String
+        if user!["bio"] != nil {
+            bioLabel.text = user!["bio"] as! String
+        }
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
