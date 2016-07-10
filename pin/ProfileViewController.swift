@@ -19,6 +19,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     var tablePins = UITableView()
     var cell = PinCell()
     var editButton = UIButton()
+    var nameLabelStr: String = ""
+    var descriptionLabelStr: String = ""
+    var selectedLocation: CLLocationCoordinate2D!
+    var pinImageFromCell: UIImage!
     
     
     var posts = [PFObject]()
@@ -66,23 +70,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
         view.backgroundColor = UIColor.whiteColor()
 
-        imageView.frame = CGRect(x: 123, y: 20, width: 128, height: 128)
-        imageView.image = UIImage (named:"logo")
+        imageView.frame = CGRect(x: 123, y: 65, width: 128, height: 128)
+        imageView.image = UIImage(named: "logo")
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         
-        nameLabel.frame = CGRect(x: 0, y: 156, width: 375, height: 21)
+        nameLabel.frame = CGRect(x: 0, y: 201, width: 375, height: 21)
         nameLabel.textAlignment = NSTextAlignment.Center
-        usernameLabel.frame = CGRect(x: 0, y: 178, width: 375, height: 21)
+        usernameLabel.frame = CGRect(x: 0, y: 223, width: 375, height: 21)
         usernameLabel.textColor = UIColor.grayColor()
         usernameLabel.textAlignment = NSTextAlignment.Center
         
-        bioLabel.frame = CGRect(x: 0, y: 198, width: 375, height: 21)
+        bioLabel.frame = CGRect(x: 0, y: 243, width: 375, height: 21)
         bioLabel.textColor = UIColor.grayColor()
         bioLabel.textAlignment = NSTextAlignment.Center
         
-        tablePins.frame = CGRect(x: 0, y: 220, width: 375, height: 460)
+        tablePins.frame = CGRect(x: 0, y: 265, width: 375, height: 350)
         tablePins.delegate = self
         tablePins.dataSource = self
         tablePins.registerClass(PinCell.self, forCellReuseIdentifier: "pinCell")
@@ -103,9 +107,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func loadData() {
         
         if user!["profilePic"] != nil {
+            
             imageView.file = user!["profilePic"] as! PFFile
+          //  imageView.loadInBackground()
+            
         } else {
-            imageView.image = UIImage(named: "defaultProfilePic")
+            imageView.image = UIImage(named: "logo")
         }
         if user!["name"] != nil {
             nameLabel.text = user!["name"] as! String
@@ -126,6 +133,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             
             cell.pinNameLabel.text = post["title"] as! String
             cell.descriptionLabel.text = post["description"] as! String
+            let point = post["location"] as! PFGeoPoint
+            cell.location = CLLocationCoordinate2DMake(point.latitude, point.longitude)
             
             let parsedImage = post["media"] as? PFFile
             cell.ivPin.file = parsedImage
@@ -141,7 +150,27 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("ShowDetailVC", sender: nil)
+        
+        // Get Cell Label
+        let indexPath = tableView.indexPathForSelectedRow!;
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath) as! PinCell!;
+        
+        //grab all of the info from the cell
+        if (currentCell.pinNameLabel.text != ""){
+            nameLabelStr = currentCell.pinNameLabel.text!
+        }
+        if (currentCell.descriptionLabel.text != ""){
+            descriptionLabelStr = currentCell.descriptionLabel.text!
+        }
+        
+        selectedLocation = currentCell.location
+        
+        pinImageFromCell = currentCell.ivPin.image
+    
+        
+        //call perform
+        performSegueWithIdentifier("ShowDetailVC", sender: self)
+        
     }
     
     
@@ -178,6 +207,22 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "ShowDetailVC") {
+            
+            // initialize new view controller and cast it as your view controller
+            var viewController = segue.destinationViewController as! DetailViewController
+            // your new view controller should have property that will store passed value
+            viewController.pinLocation = selectedLocation
+            viewController.titleStr = nameLabelStr
+            viewController.descriptionStr = descriptionLabelStr
+            viewController.imageFromCell = pinImageFromCell
+        }
+        
+    }
+
 
     
     

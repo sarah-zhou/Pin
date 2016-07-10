@@ -41,13 +41,13 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
     }
     
     func setUpViews(){
-        imagePin.frame = CGRect(x: 113, y: 68, width: 150, height: 150)
+        imagePin.frame = CGRect(x: 113, y: 78, width: 150, height: 150)
         imagePin.image = imageFromCell
         
-        nameLabel.frame = CGRect(x: 0, y: 226, width: 375, height: 21)
+        nameLabel.frame = CGRect(x: 0, y: 236, width: 375, height: 21)
         nameLabel.text = titleStr
         nameLabel.textAlignment = NSTextAlignment.Center
-        descriptionLabel.frame = CGRect(x: 0, y: 248, width: 375, height: 21)
+        descriptionLabel.frame = CGRect(x: 0, y: 258, width: 375, height: 21)
         descriptionLabel.text = descriptionStr
         descriptionLabel.textAlignment = NSTextAlignment.Center
         descriptionLabel.textColor = UIColor.grayColor()
