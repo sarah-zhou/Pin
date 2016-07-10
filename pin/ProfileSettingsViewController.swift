@@ -65,6 +65,10 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         profilePic.layer.cornerRadius = profilePic.frame.height/2
         profilePic.clipsToBounds = true
         
+        changeProfPic.setTitle("Edit", forState: .Normal)
+        changeProfPic.setTitleColor(UIColor.cyan(), forState: .Normal)
+        changeProfPic.titleLabel!.font = changeProfPic.titleLabel!.font.fontWithSize(13.0)
+        
         nameIcon.image = UIImage(named: "name")
         usernameIcon.image = UIImage(named: "username")
         bioIcon.image = UIImage(named: "bio")
@@ -134,17 +138,20 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
     }
     
     func loadInfo() {
-        if user?.profilePic != nil {
-            profilePic.file = user?.profilePic
+        
+        let user = PFUser.currentUser()
+        
+        if user!["profilePic"] != nil {
+            profilePic.file = user!["profilePic"] as! PFFile
         } else {
             profilePic.image = UIImage(named: "defaultProfilePic")
         }
         
-        nameField.text = user?.name
-        usernameLabel.text = user?.username
+        nameField.text = user!["name"] as! String
+        usernameLabel.text = user!["username"] as! String
         usernameLabel.textColor = UIColor.lightGrayColor()
-        bioField.text = user?.bio
-        emailField.text = user?.email
+        bioField.text = user!["bio"] as! String
+        emailField.text = user!["mail"] as! String
     }
     
     override func didReceiveMemoryWarning() {
@@ -166,11 +173,15 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
             let resizedImage = resize(pickedImage, newSize: size)
             
             profilePic.image = resizedImage
-            let file = User.getPFFileFromImage(resizedImage)
-            user?.profilePic = file
-            user!.saveInBackground()
+            //user?.image = profilePic.image
+            
+            let user = PFUser.currentUser()
+
+            user!["profilePic"] = profilePic.file
+            user!.saveInBackgroundWithBlock({ (success: Bool, error: NSError?) in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
         }
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func resize(image: UIImage, newSize: CGSize) -> UIImage {
@@ -186,14 +197,70 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
     }
     
     func saveChangesClicked() {
-        user?.name = nameField.text
-        user?.bio = bioField.text
-        user?.email = emailField.text
         
-        user?.saveInBackgroundWithBlock(nil)
+        postUserProfile(profilePic.file, withName: nameField.text, withBio: bioField.text, withPins: [], withEmail: emailField.text) { (succes: Bool, error: NSError?) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
         
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
+    func postUserProfile(image: PFFile?, withName name: String?, withBio bio: String?, withPins pins: [Pin], withEmail mail: String?, withCompletion completion: PFBooleanResultBlock?) {
+        // Create Parse object PFObject
+        let user = PFUser.currentUser()
+        var profPic: PFFile
+        
+        if name == "" {
+            user!["name"] = ""
+        } else {
+            user!["name"] = name
+        }
+        
+        if bio == "" {
+            user!["bio"] = ""
+        } else {
+            user!["bio"] = bio
+        }
+        
+        if mail == "" {
+            user!["mail"] = ""
+        } else {
+            user!["mail"] = mail
+        }
+        
+        if image == nil {
+            user!["profilePic"] = ""
+        } else {
+            profPic = image!
+            user!["profilePic"] = profPic // PFFile column type
+        }
+        
+        
+        // Save object (following function will save the object in Parse asynchronously)
+        user?.saveInBackgroundWithBlock(completion)
+        
+    }
+    
+    /**
+     Method to convert UIImage to PFFile
+     
+     - parameter image: Image that the user wants to upload to parse
+     
+     - returns: PFFile for the the data in the image
+     */
+    func getPFFileFromImage(image: UIImage?) -> PFFile? {
+        // check if image is not nil
+        if let image = image {
+            // get image data and check if that is not nil
+            if let imageData = UIImagePNGRepresentation(image) {
+                print("size: \(imageData.length)")
+                return PFFile(name: "image.png", data: imageData)
+            }
+        }
+        return nil
+    }
+    
+    
     
     func cancelClicked() {
         self.dismissViewControllerAnimated(true, completion: nil)
