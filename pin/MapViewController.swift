@@ -163,7 +163,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         userLocation = newLocation.coordinate
-        print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
+        //print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
         
     }
     
