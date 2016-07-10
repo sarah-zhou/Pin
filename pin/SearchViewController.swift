@@ -95,6 +95,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBarHidden = true
+
         
         fetchPins { (success: Bool, error: NSError?) in
             print(self.posts)
