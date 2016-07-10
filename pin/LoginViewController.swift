@@ -90,8 +90,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             PFUser.logInWithUsernameInBackground(usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: NSError?) -> Void in
                 if user != nil {
                     print("Logged in successfully")
+                    //persists user and goes straight to map with tab bar rather than log in screen
                     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                     appDelegate.window?.rootViewController = appDelegate.tabBar
+                    //on log in button goes to map with tab bar
+                    let vc = appDelegate.tabBar.viewControllers![1]
+                    vc.modalPresentationStyle = .FullScreen
+                    vc.modalTransitionStyle = .CoverVertical
+                    self.presentViewController(vc, animated: true, completion: nil)
                 }
                 if error?.code == 101 {
                     self.invalidLabel.text = "Username or password is invalid"

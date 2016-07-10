@@ -301,7 +301,7 @@
 				TargetAttributes = {
 					3EC895921D31746300C83C4B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = CZXM748582;
+						DevelopmentTeam = J29EQ9363G;
 					};
 					3EC895A61D31746300C83C4B = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -648,7 +648,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = pin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = syzhou.pin;
+				PRODUCT_BUNDLE_IDENTIFIER = aashimagarg.pin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -663,7 +663,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = pin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = syzhou.pin;
+				PRODUCT_BUNDLE_IDENTIFIER = aashimagarg.pin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

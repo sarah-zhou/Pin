@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Parse
+import ParseUI
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
@@ -17,7 +18,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var locationManager: CLLocationManager!
     var userLocation: CLLocationCoordinate2D!
     var pinButton = UIButton()
-    
+
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
         pinButton.setBackgroundImage(UIImage(named: "logo"), forState: UIControlState.Normal)
@@ -34,22 +35,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         view.addSubview(pinButton)
         
         locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationManager.delegate = self;
+        locationManager.requestWhenInUseAuthorization()
+
         
+        /*locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        locationManager.delegate = self;
         // user activated automatic authorization info mode
-        var status = CLLocationManager.authorizationStatus()
         if status == .NotDetermined || status == .Denied || status == .AuthorizedWhenInUse {
             // present an alert indicating location authorization required
             // and offer to take the user to Settings for the app via
             // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
             locationManager.requestAlwaysAuthorization()
             locationManager.requestWhenInUseAuthorization()
-        }
+        }*/
+        
+        var status = CLLocationManager.authorizationStatus()
         
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
+            print(locationManager.location?.coordinate)
             if let userLocation = locationManager.location?.coordinate {
                 //userLocation = locationManager.location!.coordinate
                 
@@ -68,14 +73,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        if PFUser.currentUser() == nil {
-//            let vc = WelcomeViewController()
-//            vc.modalPresentationStyle = .FullScreen
-//            vc.modalTransitionStyle = .CoverVertical
-//            self.presentViewController(vc, animated: true, completion: nil)
-//        }
-//    }
+    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+        var annotations = [mapView.userLocation]
+        mapView.showAnnotations(annotations, animated: true)
+    }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
@@ -92,7 +93,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
         userLocation = newLocation.coordinate
-        //print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
+        print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
         
     }
     
@@ -120,7 +121,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func pinClicked() {
         print("pin dropped")
-        var newPin = Pin.init(title: "Enter Pin Details", locationName: "", discipline: "", coordinate: userLocation)
+        let newPin = Pin.init(title: "Enter Pin Details", locationName: "", discipline: "", coordinate: (locationManager.location?.coordinate)!)
         
         
         //SEGUE TO DETAIL VIEW
