@@ -15,6 +15,9 @@ class PinCell: UITableViewCell {
     var ivPin : PFImageView!
     var pinNameLabel : UILabel!
     var descriptionLabel : UILabel!
+    var location: CLLocationCoordinate2D!
+    var locationFile: PFGeoPoint!
+
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")

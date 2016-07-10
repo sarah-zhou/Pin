@@ -15,6 +15,7 @@ import ParseUI
 
 class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var imagePin = UIImageView()
+    var imageFromCell: UIImage!
     var nameLabel = UILabel()
     var descriptionLabel = UILabel()
     var mapView = MKMapView()
@@ -36,12 +37,12 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate, MKMapVi
         self.navigationController?.navigationBarHidden = false
         setUpViews()
         
-       print(pinLocation)
+       //print(pinLocation)
     }
     
     func setUpViews(){
         imagePin.frame = CGRect(x: 113, y: 68, width: 150, height: 150)
-        imagePin.image = UIImage (named:"logo")
+        imagePin.image = imageFromCell
         
         nameLabel.frame = CGRect(x: 0, y: 226, width: 375, height: 21)
         nameLabel.text = titleStr
