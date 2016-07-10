@@ -93,7 +93,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.navigationBarHidden = true
+
         fetchPins()
         
         let annotationQuery = PFQuery(className: "Pin")
@@ -230,6 +231,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     override func viewDidAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = true
+        
         let annotationQuery = PFQuery(className: "Pin")
         let currentLoc = PFGeoPoint(location: locationManager.location)
         annotationQuery.whereKey("location", nearGeoPoint: currentLoc, withinMiles: 10)
@@ -257,13 +260,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        //let vc = DetailViewController()
-        //print(view.annotation!.coordinate)
         
-       // selectedLocation = view.annotation!.coordinate
+        selectedLocation = view.annotation!.coordinate
+        nameLocation = view.annotation!.title!
+        descriptionLocation = view.annotation!.subtitle!
         
-        //vc.pinLocation = view.annotation!.coordinate
-        performSegueWithIdentifier("ShowDetailVC", sender: nil)
+        performSegueWithIdentifier("ShowDetailVC", sender: self)
 
     }
     
@@ -276,24 +278,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
   
-   /* var selectedLocation: CLLocationCoordinate2D!
+    var selectedLocation: CLLocationCoordinate2D!
+    var nameLocation: String!
+    var descriptionLocation: String!
     
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowDetailVC" {
             
-            let selectedLoc = selectedLocation
             let detailViewController = segue.destinationViewController as! DetailViewController
             
-            detailViewController.pinLocation = selectedLoc
+            detailViewController.pinLocation = selectedLocation
+            detailViewController.titleStr = nameLocation
+            detailViewController.descriptionStr = descriptionLocation
         }
         
-        
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }*/
+    }
     
     
 }
