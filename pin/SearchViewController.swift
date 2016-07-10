@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     var searchBar = UISearchBar()
     var tableSearch = UITableView()
@@ -22,6 +22,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UISearchBar
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+        self.navigationController?.navigationBarHidden = true
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,13 +40,13 @@ class SearchViewController: UIViewController, UITableViewDataSource, UISearchBar
         tableSearch.dataSource = self
         tableSearch.registerClass(PinCell.self, forCellReuseIdentifier: "pinCell")
         tableSearch.rowHeight = 94
-        //tableSearch.delegate = self
+        tableSearch.delegate = self
         
         searchBar.delegate = self
         searchBar.frame = CGRect(x: 0, y: 20, width: 375, height: 44)
         searchBar.barTintColor = UIColor.orangeColor()
         searchBar.placeholder = "Search pins..."
-        tableSearch.frame = CGRect(x: 0, y: 64, width: 375, height: 603)
+        tableSearch.frame = CGRect(x: 0, y: 64, width: 375, height: 559)
         
         view.addSubview(searchBar)
         view.addSubview(tableSearch)
@@ -88,5 +90,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UISearchBar
             })
         }
         tableSearch.reloadData()
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("ShowDetailVC", sender: nil)
     }
 }

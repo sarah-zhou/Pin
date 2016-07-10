@@ -127,9 +127,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             // call sign up function on the object
             newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                 if success {
-                    print("Created a user")
-                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                    appDelegate.window?.rootViewController = appDelegate.tabBar
+                    
+                    self.performSegueWithIdentifier("ReplaceWithTabBar", sender: nil)
+//                    print("Created a user")
+//                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//                    appDelegate.window?.rootViewController = appDelegate.tabBar
                 } else {
                     print(error?.localizedDescription)
                     if error?.code == 202 {
@@ -153,10 +155,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 //    }
     
     func loginClicked() {
-        let vc = LoginViewController()
-        vc.modalPresentationStyle = .FullScreen
-        vc.modalTransitionStyle = .CoverVertical
-        self.presentViewController(vc, animated: true, completion: nil)
+        performSegueWithIdentifier("PresentLogin", sender: nil)
+//        let vc = LoginViewController()
+//        vc.modalPresentationStyle = .FullScreen
+//        vc.modalTransitionStyle = .CoverVertical
+//        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

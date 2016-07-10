@@ -69,17 +69,19 @@ class WelcomeViewController: UIViewController {
     }
     
     func loginClicked() {
-        let vc = LoginViewController()
-        vc.modalPresentationStyle = .FullScreen
-        vc.modalTransitionStyle = .CoverVertical
-        self.presentViewController(vc, animated: true, completion: nil)
+        performSegueWithIdentifier("PresentLogin", sender: nil)
+//        let vc = LoginViewController()
+//        vc.modalPresentationStyle = .FullScreen
+//        vc.modalTransitionStyle = .CoverVertical
+//        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func signUpClicked() {
-        let vc = SignUpViewController()
-        vc.modalPresentationStyle = .FullScreen
-        vc.modalTransitionStyle = .CoverVertical
-        self.presentViewController(vc, animated: true, completion: nil)
+        performSegueWithIdentifier("PresentSignUp", sender: nil)
+//        let vc = SignUpViewController()
+//        vc.modalPresentationStyle = .FullScreen
+//        vc.modalTransitionStyle = .CoverVertical
+//        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
