@@ -73,6 +73,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        print("map view loaded")
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
