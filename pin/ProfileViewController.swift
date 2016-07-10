@@ -51,11 +51,14 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func viewDidAppear() {
         loadData()
+        self.navigationController?.navigationBarHidden = true
+
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.navigationBarHidden = true
+
         fetchPins { (success: Bool, error: NSError?) in
             print(self.posts)
         }
