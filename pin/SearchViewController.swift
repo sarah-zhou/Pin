@@ -110,6 +110,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                 print(posts)
                 if let posts = posts {
                     self.posts = posts
+                    self.posts = self.posts.reverse()
                     self.tableSearch.reloadData()
                     
                 }
