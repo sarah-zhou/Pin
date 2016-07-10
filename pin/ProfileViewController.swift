@@ -148,7 +148,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func fetchPins(withCompletion completion: PFBooleanResultBlock?) {
         
         let pinQuery = PFQuery(className: "Pin")
-        //pinQuery.whereKey("username", equalTo: (PFUser.currentUser()?.username)!)
+        pinQuery.whereKey("author", equalTo: (PFUser.currentUser())!)
         //(user!.username)!
         //PFUser.currentUser()
         pinQuery.findObjectsInBackgroundWithBlock {
@@ -157,11 +157,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 // The find succeeded.
                 print("Successful query for pins")
                 
-                print(posts)
                 if let posts = posts {
                     self.posts = posts
+                    print(posts)
+
                     self.tablePins.reloadData()
-                    
                 }
                 else {
                     print(error?.localizedDescription)
