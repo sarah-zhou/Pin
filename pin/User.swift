@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import ParseUI
 
 class User: PFUser {
     
@@ -54,11 +55,9 @@ class User: PFUser {
             profilePic = getPFFileFromImage(image)
             user["profilePic"] = profilePic // PFFile column type
         }
-        
             
         // Save object (following function will save the object in Parse asynchronously)
         user.saveInBackgroundWithBlock(completion)
-        
 
     }
 

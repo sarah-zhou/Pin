@@ -123,6 +123,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             newUser.name = nameField.text
             newUser.password = passwordField.text
             newUser.bio = ""
+            newUser.profilePic = newUser.getPFFileFromImage(UIImage(named: "defaultProfilePic"))
             
             // call sign up function on the object
             newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
