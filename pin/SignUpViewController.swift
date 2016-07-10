@@ -145,7 +145,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     func setupTabBarController() {
         let appDelegate = AppDelegate()
-        self.presentViewController(appDelegate.tabBar!, animated: true, completion: nil)
+        self.presentViewController(appDelegate.tabBar, animated: true, completion: nil)
     }
 
     

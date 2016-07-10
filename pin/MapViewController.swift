@@ -17,6 +17,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var userLocation: CLLocationCoordinate2D!
     var pinButton = UIButton()
     
+    var status = CLLocationManager.authorizationStatus()
+
     
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
@@ -39,7 +41,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self;
         
         // user activated automatic authorization info mode
-        var status = CLLocationManager.authorizationStatus()
         if status == .NotDetermined || status == .Denied || status == .AuthorizedWhenInUse {
             // present an alert indicating location authorization required
             // and offer to take the user to Settings for the app via
