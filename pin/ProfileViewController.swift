@@ -191,6 +191,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 if let posts = posts {
                     self.posts = posts
+                    self.posts = self.posts.reverse()
                     print(posts)
 
                     self.tablePins.reloadData()
