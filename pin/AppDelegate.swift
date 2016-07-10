@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        window?.rootViewController = WelcomeViewController()
+        // window?.rootViewController = WelcomeViewController()
         
         let search = SearchViewController()
         let map = MapViewController()
@@ -46,11 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
-        if let _ = PFUser.currentUser() {
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            self.window?.rootViewController = self.tabBar
-            self.window?.makeKeyAndVisible()
-        }
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.rootViewController = self.tabBar
+        self.window?.makeKeyAndVisible()
         
         return true
     }

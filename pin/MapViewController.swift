@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Parse
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
@@ -17,15 +18,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var userLocation: CLLocationCoordinate2D!
     var pinButton = UIButton()
     
-    
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
         pinButton.setBackgroundImage(UIImage(named: "logo"), forState: UIControlState.Normal)
         pinButton.frame = CGRect(x: 128, y: 482, width: 60, height: 60)
         pinButton.addTarget(self, action: #selector(pinClicked), forControlEvents: UIControlEvents.TouchUpInside)
-        
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -67,6 +66,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
         }
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if PFUser.currentUser() == nil {
+            print("there is not a current user")
+            print(PFUser.currentUser()?.username)
+            
+            let vc = WelcomeViewController()
+            vc.modalPresentationStyle = .FullScreen
+            vc.modalTransitionStyle = .CoverVertical
+            self.presentViewController(vc, animated: true, completion: nil)
+        }
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
