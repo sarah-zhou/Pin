@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Parse
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
@@ -17,17 +18,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var userLocation: CLLocationCoordinate2D!
     var pinButton = UIButton()
     
-    var status = CLLocationManager.authorizationStatus()
-
-    
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
         pinButton.setBackgroundImage(UIImage(named: "logo"), forState: UIControlState.Normal)
         pinButton.frame = CGRect(x: 128, y: 482, width: 60, height: 60)
         pinButton.addTarget(self, action: #selector(pinClicked), forControlEvents: UIControlEvents.TouchUpInside)
-        
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -41,6 +38,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self;
         
         // user activated automatic authorization info mode
+        var status = CLLocationManager.authorizationStatus()
         if status == .NotDetermined || status == .Denied || status == .AuthorizedWhenInUse {
             // present an alert indicating location authorization required
             // and offer to take the user to Settings for the app via
@@ -70,24 +68,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
-            if let userLocation = locationManager.location?.coordinate {
-                //userLocation = locationManager.location!.coordinate
-                
-                //mapview setup to show user location
-                
-                let region = MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1))
-                mapView.setRegion(region, animated: false)
-                
-                mapView.delegate = self
-                mapView.showsUserLocation = true
-                mapView.mapType = MKMapType(rawValue: 0)!
-                mapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
-            }
+    override func viewDidAppear(animated: Bool) {
+        if PFUser.currentUser() == nil {
+            print("there is not a current user")
+            print(PFUser.currentUser()?.username)
+            
+            let vc = WelcomeViewController()
+            vc.modalPresentationStyle = .FullScreen
+            vc.modalTransitionStyle = .CoverVertical
+            self.presentViewController(vc, animated: true, completion: nil)
         }
     }
     

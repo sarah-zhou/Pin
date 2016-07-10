@@ -20,12 +20,13 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
     
     var privateInfoLabel = UILabel()
     var nameField = UITextField()
-    var usernameField = UITextField()
+    var usernameLabel = UILabel()
     var bioField = UITextField()
     var emailField = UITextField()
     
     var changeProfPic = UIButton()
     var saveChanges = UIButton()
+    var cancelButton = UIButton()
     var logout = UIButton()
     
     let imagePicker = UIImagePickerController()
@@ -44,7 +45,7 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         profilePic.frame = CGRect(x: 112, y: 93, width: 150, height: 150)
         changeProfPic.frame = CGRect(x: 172, y: 251, width: 30, height: 12)
         nameField.frame = CGRect(x: 58, y: 281, width: 297, height: 30)
-        usernameField.frame = CGRect(x: 58, y: 319, width: 297, height: 30)
+        usernameLabel.frame = CGRect(x: 58, y: 319, width: 297, height: 30)
         bioField.frame = CGRect(x: 58, y: 357, width: 297, height: 30)
         emailField.frame = CGRect(x: 58, y: 446, width: 297, height: 30)
         
@@ -55,6 +56,7 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         emailIcon.frame = CGRect(x: 20, y: 446, width: 25, height: 25)
         
         saveChanges.frame = CGRect(x: 20, y: 490, width: 335, height: 30)
+        cancelButton.frame = CGRect(x: 20, y: 530, width: 335, height: 30)
         logout.frame = CGRect(x: 0, y: 617, width: 375, height: 50)
         
         profilePic.layer.borderWidth = 1.0
@@ -68,35 +70,39 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         emailIcon.image = UIImage(named: "email")
         
         nameField.placeholder = "FULL NAME"
-        usernameField.placeholder = "USERNAME"
         bioField.placeholder = "BIO"
         emailField.placeholder = "EMAIL ADDRESS"
         privateInfoLabel.text = "PRIVATE INFORMATION"
         
         saveChanges.setTitle("Save Changes", forState: .Normal)
+        saveChanges.setTitleColor(UIColor.cyan(), forState: .Normal)
         saveChanges.layer.borderWidth = 1.0
         saveChanges.layer.borderColor = UIColor.cyan().CGColor
         saveChanges.layer.cornerRadius = 10.0
+        
+        cancelButton.setTitle("Cancel", forState: .Normal)
+        cancelButton.setTitleColor(UIColor.cyan(), forState: .Normal)
+        cancelButton.layer.borderWidth = 1.0
+        cancelButton.layer.borderColor = UIColor.cyan().CGColor
+        cancelButton.layer.cornerRadius = 10.0
         
         logout.backgroundColor = UIColor.deepOrange()
         logout.setTitle("LOGOUT", forState: .Normal)
         logout.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         
-        nameField.font = usernameField.font?.fontWithSize(16.0)
-        usernameField.font = usernameField.font?.fontWithSize(16.0)
+        nameField.font = usernameLabel.font?.fontWithSize(16.0)
+        usernameLabel.font = usernameLabel.font?.fontWithSize(16.0)
+        
         bioField.font = bioField.font?.fontWithSize(16.0)
         emailField.font = emailField.font?.fontWithSize(16.0)
         privateInfoLabel.font = privateInfoLabel.font?.fontWithSize(16.0)
         
         nameField.delegate = self
-        usernameField.delegate = self
         bioField.delegate = self
         emailField.delegate = self
         
         nameField.autocapitalizationType = UITextAutocapitalizationType.None
         nameField.autocorrectionType = .No
-        usernameField.autocapitalizationType = UITextAutocapitalizationType.None
-        usernameField.autocorrectionType = .No
         bioField.autocapitalizationType = UITextAutocapitalizationType.None
         bioField.autocorrectionType = .No
         emailField.autocapitalizationType = UITextAutocapitalizationType.None
@@ -104,6 +110,7 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         
         changeProfPic.addTarget(self, action: #selector(changeProfPicClicked), forControlEvents: UIControlEvents.TouchUpInside)
         saveChanges.addTarget(self, action: #selector(saveChangesClicked), forControlEvents: UIControlEvents.TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(cancelClicked), forControlEvents: UIControlEvents.TouchUpInside)
         logout.addTarget(self, action: #selector(logoutClicked), forControlEvents: UIControlEvents.TouchUpInside)
         
         view.addSubview(profilePic)
@@ -115,12 +122,13 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         
         view.addSubview(privateInfoLabel)
         view.addSubview(nameField)
-        view.addSubview(usernameField)
+        view.addSubview(usernameLabel)
         view.addSubview(bioField)
         view.addSubview(emailField)
         
         view.addSubview(changeProfPic)
         view.addSubview(saveChanges)
+        view.addSubview(cancelButton)
         view.addSubview(logout)
     }
     
@@ -132,7 +140,8 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         }
         
         nameField.text = user?.name
-        usernameField.text = user?.username
+        usernameLabel.text = user?.username
+        usernameLabel.textColor = UIColor.lightGrayColor()
         bioField.text = user?.bio
         emailField.text = user?.email
     }
@@ -176,7 +185,17 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
     }
     
     func saveChangesClicked() {
+        user?.name = nameField.text
+        user?.bio = bioField.text
+        user?.email = emailField.text
+        
         user?.saveInBackground()
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func cancelClicked() {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func logoutClicked() {

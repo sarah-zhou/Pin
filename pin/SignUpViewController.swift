@@ -128,7 +128,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                 if success {
                     print("Created a user")
-                    self.setupTabBarController()
+                    self.view.window!.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
                 } else {
                     print(error?.localizedDescription)
                     if error?.code == 202 {
@@ -143,11 +143,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func setupTabBarController() {
-        let appDelegate = AppDelegate()
-        self.presentViewController(appDelegate.tabBar, animated: true, completion: nil)
-    }
-
+//    func setupTabBarController() {
+//        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//        let vc = appDelegate.tabBar.viewControllers![1]
+//        vc.modalPresentationStyle = .FullScreen
+//        vc.modalTransitionStyle = .CoverVertical
+//        self.presentViewController(vc, animated: true, completion: nil)
+//    }
     
     func loginClicked() {
         let vc = LoginViewController()
