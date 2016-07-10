@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Parse
+import ParseUI
 
 class PinCell: UITableViewCell {
     
-    var ivPin : UIImageView!
+    var ivPin : PFImageView!
     var pinNameLabel : UILabel!
     var descriptionLabel : UILabel!
     
@@ -21,7 +23,7 @@ class PinCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        ivPin = UIImageView()
+        ivPin = PFImageView()
         ivPin.frame = CGRect(x: 4, y: 2, width: 90, height: 90)
         contentView.addSubview(ivPin)
         

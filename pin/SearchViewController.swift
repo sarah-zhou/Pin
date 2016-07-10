@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Parse
+import ParseUI
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
@@ -15,14 +17,24 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     var filteredData: [String]!
     var cell = PinCell()
     
+    var posts = [PFObject]()
+    var post: PFObject!
+    
+    
     let cellReuseIdentifier = "pinCell"
     
-    let data = ["Pin 1, Description 1", "Pin 2, Description2", "Pin 3, Description 3", "Pin 4, Description 4"]
+    //let data = ["Pin 1, Description 1", "Pin 2, Description2", "Pin 3, Description 3", "Pin 4, Description 4"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
+        fetchPins { (success: Bool, error: NSError?) in
+            print(self.posts)
+        }
+        self.setUpViews()
         self.navigationController?.navigationBarHidden = true
+        print("about to fetch pins")
+        
+        
 
     }
     
@@ -33,7 +45,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     func setUpViews() {
         
-        filteredData = data
+        //filteredData = data
         
         view.backgroundColor = UIColor.whiteColor()
         
@@ -50,24 +62,80 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         view.addSubview(searchBar)
         view.addSubview(tableSearch)
+        tableSearch.addSubview(cell)
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        print("here")
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier, forIndexPath: indexPath) as! PinCell
-        let details = filteredData[indexPath.row].componentsSeparatedByString(", ")
-        cell.pinNameLabel.text = details.first
-        cell.descriptionLabel.text = details.last
-        cell.ivPin.image = UIImage (named:"logo")
-        
+        let cell = tableView.dequeueReusableCellWithIdentifier("pinCell", forIndexPath: indexPath) as! PinCell
+        if posts.count != 0 {
+            let post = posts[indexPath.row] as! PFObject
+            print("displaying post")
+            print(post)
+            
+            cell.pinNameLabel.text = post["title"] as! String
+            cell.descriptionLabel.text = post["description"] as! String
+            
+            let parsedImage = post["media"] as? PFFile
+            cell.ivPin.file = parsedImage
+            cell.ivPin.loadInBackground()
+            
+        }
         return cell
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchPins { (success: Bool, error: NSError?) in
+            print(self.posts)
+        }
+    }
+    
+    
+    func fetchPins(withCompletion completion: PFBooleanResultBlock?) {
+        
+        let pinQuery = PFQuery(className: "Pin")
+        //pinQuery.whereKey("username" = currentUser.username)
+        
+        pinQuery.findObjectsInBackgroundWithBlock {
+            (posts: [PFObject]?, error: NSError?) -> Void in
+            if error == nil {
+                // The find succeeded.
+                print("Successful query for pins")
+                
+                print(posts)
+                if let posts = posts {
+                    self.posts = posts
+                    self.tableSearch.reloadData()
+                    
+                }
+                else {
+                    print(error?.localizedDescription)
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableSearch.reloadData()
+                })
+
+            }
+            else {
+                // Log details of the failure
+                print("Error: \(error)")
+            }
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredData.count
+        return posts.count
+
     }
     
+    
+    /*
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -> Bool in
@@ -91,6 +159,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         }
         tableSearch.reloadData()
     }
+ */
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("ShowDetailVC", sender: nil)
