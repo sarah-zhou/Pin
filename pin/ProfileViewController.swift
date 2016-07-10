@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     var tablePins = UITableView()
     var cell = PinCell()
     var editButton = UIButton()
-    let navigationVC = UINavigationController(rootViewController: ProfileSettingsViewController())
+    // let navigationVC = UINavigationController(rootViewController: ProfileSettingsViewController())
     
     let cellReuseIdendifier = "pinCell"
     
@@ -85,7 +85,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func editProfile() {
-        self.presentViewController(self.navigationVC, animated: true, completion: nil)
+        // self.presentViewController(self.navigationVC, animated: true, completion: nil)
+        let vc = ProfileSettingsViewController()
+        vc.modalPresentationStyle = .FullScreen
+        vc.modalTransitionStyle = .CoverVertical
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
