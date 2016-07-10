@@ -13,10 +13,25 @@ import Parse
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var tabBar = UITabBarController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         window?.rootViewController = WelcomeViewController()
+        
+        let search = SearchViewController()
+        let map = MapViewController()
+        let profile = ProfileViewController()
+        
+        search.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home"), tag: 0)
+        map.tabBarItem = UITabBarItem(title: "Map", image: UIImage(named: "map"), tag: 1)
+        profile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), tag: 2)
+        
+        let vcs = [search, map, profile]
+        tabBar.viewControllers = vcs
+        tabBar.selectedIndex = 1
+        tabBar.modalPresentationStyle = .FullScreen
+        tabBar.modalTransitionStyle = .CoverVertical
         
         User.registerSubclass()
         
@@ -33,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let _ = PFUser.currentUser() {
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            self.window?.rootViewController = MapViewController()
+            self.window?.rootViewController = self.tabBar
             self.window?.makeKeyAndVisible()
         }
         
