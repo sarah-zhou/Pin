@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Parse
+import ParseUI
 
 class CreateViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
     
@@ -21,6 +23,9 @@ class CreateViewController: UIViewController, UIImagePickerControllerDelegate, U
     var takeButton = UIButton()
     var postButton = UIButton()
     var cancelButton = UIButton()
+    
+    var location: CLLocation!
+    var locationName: String!
     
     let imagePicker = UIImagePickerController()
     
@@ -124,8 +129,13 @@ class CreateViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func onPost(){
+        postUserPin(uploadImage.image, withTitle: titleField.text, withDescription: descriptionField.text, withCompletion: nil)
+        uploadImage.image = nil
+        titleField.text = nil
+        descriptionField.text = nil
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
     func onCancel(){
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -169,6 +179,49 @@ class CreateViewController: UIViewController, UIImagePickerControllerDelegate, U
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
+    }
+    
+    
+    
+    /**
+     Method to add a user post to Parse (uploading image file)
+     
+     - parameter image: Image that the user wants upload to parse
+     - parameter caption: Caption text input by the user
+     - parameter completion: Block to be executed after save operation is complete
+     */
+    func postUserPin(image: UIImage?, withTitle caption: String?, withDescription description: String?, withCompletion completion: PFBooleanResultBlock?) {
+        // Create Parse object PFObject
+        let pin = PFObject(className: "Pin")
+        
+        // Add relevant fields to the object
+        pin["media"] = getPFFileFromImage(image) // PFFile column type
+        pin["author"] = PFUser.currentUser() // Pointer column type that points to PFUser
+        pin["title"] = titleField.text
+        pin["location"] = PFGeoPoint(location: location)
+        pin["locationName"] = NSNull()
+        pin["description"] = descriptionField.text
+        
+        // Save object (following function will save the object in Parse asynchronously)
+        pin.saveInBackgroundWithBlock(completion)
+    }
+
+    /**
+     Method to convert UIImage to PFFile
+     
+     - parameter image: Image that the user wants to upload to parse
+     
+     - returns: PFFile for the the data in the image
+     */
+    func getPFFileFromImage(image: UIImage?) -> PFFile? {
+        // check if image is not nil
+        if let image = image {
+            // get image data and check if that is not nil
+            if let imageData = UIImagePNGRepresentation(image) {
+                return PFFile(name: "image.png", data: imageData)
+            }
+        }
+        return nil
     }
     
 }
