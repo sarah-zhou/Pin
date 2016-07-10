@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Parse
+import ParseUI
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var imageView = UIImageView()
+    var imageView = PFImageView()
     var nameLabel = UILabel()
     var usernameLabel = UILabel()
+    var bioLabel = UILabel()
     var tablePins = UITableView()
     var cell = PinCell()
     var editButton = UIButton()
@@ -33,6 +36,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         loadData()
     }
     
+    func viewDidAppear() {
+        loadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -49,14 +56,16 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         
         nameLabel.frame = CGRect(x: 0, y: 156, width: 375, height: 21)
-        // nameLabel.text = "Rebecca"
         nameLabel.textAlignment = NSTextAlignment.Center
         usernameLabel.frame = CGRect(x: 0, y: 178, width: 375, height: 21)
-        // usernameLabel.text = "@" + "beccawella"
         usernameLabel.textColor = UIColor.grayColor()
         usernameLabel.textAlignment = NSTextAlignment.Center
         
-        tablePins.frame = CGRect(x: 0, y: 207, width: 375, height: 460)
+        bioLabel.frame = CGRect(x: 0, y: 190, width: 375, height: 21)
+        bioLabel.textColor = UIColor.grayColor()
+        bioLabel.textAlignment = NSTextAlignment.Center
+        
+        tablePins.frame = CGRect(x: 0, y: 205, width: 375, height: 460)
         tablePins.delegate = self
         tablePins.dataSource = self
         tablePins.registerClass(PinCell.self, forCellReuseIdentifier: "pinCell")
@@ -75,10 +84,17 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func loadData() {
-        if user!.name != nil {
-            nameLabel.text = user!.name!
+        
+        if user!["profilePic"] != nil {
+            imageView.file = user!["profilePic"] as! PFFile
+        } else {
+            imageView.image = UIImage(named: "defaultProfilePic")
         }
-        usernameLabel.text = "@\(user!.username!)"
+        
+        nameLabel.text = user!["name"] as! String
+        usernameLabel.text = user!["username"] as! String
+        usernameLabel.textColor = UIColor.lightGrayColor()
+        bioLabel.text = user!["bio"] as! String
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

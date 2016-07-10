@@ -25,20 +25,19 @@ class WelcomeViewController: UIViewController {
     func setUpView() {
         view.backgroundColor = UIColor.whiteColor()
         
-        // backgroundImage.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
-        logo.frame = CGRect(x: 148, y: 95, width: 80, height: 80)
+        backgroundImage.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
+        logo.frame = CGRect(x: 148, y: 130, width: 80, height: 80)
         titleLabel.frame = CGRect(x: 61, y: 190, width: 253, height: 40)
         loginButton.frame = CGRect(x: 98, y: 455, width: 180, height: 40)
         signUpButton.frame = CGRect(x: 98, y: 505, width: 180, height: 40)
         
-//        backgroundImage.image = UIImage(named: "welcome")
+        backgroundImage.image = UIImage(named: "background")
         logo.image = UIImage(named: "logo")
         
-        let blurEffect = UIBlurEffect(style: .Light)
+        let blurEffect = UIBlurEffect(style: .Dark)
         blur = UIVisualEffectView(effect: blurEffect)
-        blur.alpha = 0.8
-        blur.frame = CGRect(x: 98, y: 505, width: 180, height: 40)
-        blur.layer.cornerRadius = 20.0
+        blur.alpha = 0.4
+        blur.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
         blur.clipsToBounds = true
         
         titleLabel.textAlignment = NSTextAlignment.Center
@@ -60,11 +59,12 @@ class WelcomeViewController: UIViewController {
         
         loginButton.addTarget(self, action: #selector(loginClicked), forControlEvents: UIControlEvents.TouchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpClicked), forControlEvents: UIControlEvents.TouchUpInside)
-//        view.addSubview(backgroundImage)
+        
+        view.addSubview(backgroundImage)
+        view.addSubview(blur)
         view.addSubview(logo)
         view.addSubview(titleLabel)
         view.addSubview(loginButton)
-        view.addSubview(blur)
         view.addSubview(signUpButton)
     }
     
