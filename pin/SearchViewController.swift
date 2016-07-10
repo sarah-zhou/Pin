@@ -16,10 +16,13 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     var tableSearch = UITableView()
     var filteredData: [String]!
     var cell = PinCell()
-    
+    var nameLabel: String = ""
+    var descriptionLabel: String = ""
     var posts = [PFObject]()
     var post: PFObject!
-    
+    var selectedLocation: CLLocationCoordinate2D!
+    var pinImageFromCell: UIImage!
+
     
     let cellReuseIdentifier = "pinCell"
     
@@ -58,7 +61,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.frame = CGRect(x: 0, y: 20, width: 375, height: 44)
         searchBar.barTintColor = UIColor.orangeColor()
         searchBar.placeholder = "Search pins..."
-        tableSearch.frame = CGRect(x: 0, y: 64, width: 375, height: 559)
+        tableSearch.frame = CGRect(x: 0, y: 64, width: 375, height: 550)
         
         view.addSubview(searchBar)
         view.addSubview(tableSearch)
@@ -77,6 +80,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             
             cell.pinNameLabel.text = post["title"] as! String
             cell.descriptionLabel.text = post["description"] as! String
+            let point = post["location"] as! PFGeoPoint
+            cell.location = CLLocationCoordinate2DMake(point.latitude, point.longitude)
+            
             
             let parsedImage = post["media"] as? PFFile
             cell.ivPin.file = parsedImage
@@ -162,6 +168,42 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
  */
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("ShowDetailVC", sender: nil)
+        
+        // Get Cell Label
+        let indexPath = tableView.indexPathForSelectedRow!;
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath) as! PinCell!;
+        
+        //grab all of the info from the cell
+        if (currentCell.pinNameLabel.text != ""){
+        nameLabel = currentCell.pinNameLabel.text!
+        }
+        if (currentCell.descriptionLabel.text != ""){
+        descriptionLabel = currentCell.descriptionLabel.text!
+        }
+        
+        selectedLocation = currentCell.location
+        
+        pinImageFromCell = currentCell.ivPin.image
+        
+        //call perform
+        performSegueWithIdentifier("ShowDetailVC", sender: self)
+        
+        
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "ShowDetailVC") {
+            
+            // initialize new view controller and cast it as your view controller
+            var viewController = segue.destinationViewController as! DetailViewController
+            // your new view controller should have property that will store passed value
+            viewController.pinLocation = selectedLocation
+            viewController.titleStr = nameLabel
+            viewController.descriptionStr = descriptionLabel
+            viewController.imageFromCell = pinImageFromCell
+        }
+        
+    }
+    
 }
