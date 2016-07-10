@@ -101,8 +101,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupTabBarController() {
-        let appDelegate = AppDelegate()
-        self.presentViewController(appDelegate.tabBar, animated: true, completion: nil)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let vc = appDelegate.tabBar.viewControllers![1]
+        vc.modalPresentationStyle = .FullScreen
+        vc.modalTransitionStyle = .CoverVertical
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func signUpClicked() {
