@@ -143,10 +143,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+   /* func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         let annotations = [mapView.userLocation]
         mapView.showAnnotations(annotations, animated: true)
-    }
+    }*/
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
@@ -179,7 +179,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             } else {
                 // 3
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.draggable = true
+                view.draggable = false
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
                 view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
@@ -192,7 +192,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func pinClicked() {
         print("pin dropped")
         pinLocation = location
-        let newPin = Pin.init(title: "Enter Pin Details", locationName: "", discipline: "", coordinate: (locationManager.location?.coordinate)!)
+        let newPin = Pin.init(title: "", locationName: "", discipline: "", coordinate: (locationManager.location?.coordinate)!)
         //SEGUE TO DETAIL VIEW
         mapView.addAnnotation(newPin as MKAnnotation)
         
@@ -210,7 +210,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             print(droppedAt)
         }
     }
-    
     
     func fetchPins() {
         // construct query
@@ -260,13 +259,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        
-        selectedLocation = view.annotation!.coordinate
-        nameLocation = view.annotation!.title!
-        descriptionLocation = view.annotation!.subtitle!
-        
-        performSegueWithIdentifier("ShowDetailVC", sender: self)
-
+    
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+           
+            selectedLocation = view.annotation!.coordinate
+            nameLocation = view.annotation!.title!
+            descriptionLocation = view.annotation!.subtitle!
+            
+            performSegueWithIdentifier("ShowDetailVC", sender: self)
+        }
     }
     
    
