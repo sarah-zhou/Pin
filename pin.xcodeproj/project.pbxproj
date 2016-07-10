@@ -12,7 +12,6 @@
 		3E03383A1D31793700F8E7A5 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0338391D31793700F8E7A5 /* CreateViewController.swift */; };
 		3E03383C1D3186AE00F8E7A5 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E03383B1D3186AE00F8E7A5 /* UIColor+CustomColors.swift */; };
 		3E37BFA51D31A51E003933BB /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E37BFA41D31A51E003933BB /* ProfileSettingsViewController.swift */; };
-		3E37BFE31D31C764003933BB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E37BFE21D31C764003933BB /* TabBarController.swift */; };
 		3EC895971D31746300C83C4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC895961D31746300C83C4B /* AppDelegate.swift */; };
 		3EC8959C1D31746300C83C4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EC8959A1D31746300C83C4B /* Main.storyboard */; };
 		3EC8959E1D31746300C83C4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EC8959D1D31746300C83C4B /* Assets.xcassets */; };
@@ -56,7 +55,6 @@
 		3E0338391D31793700F8E7A5 /* CreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		3E03383B1D3186AE00F8E7A5 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		3E37BFA41D31A51E003933BB /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
-		3E37BFE21D31C764003933BB /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3EC895931D31746300C83C4B /* pin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EC895961D31746300C83C4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EC8959B1D31746300C83C4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 			children = (
 				3E0338391D31793700F8E7A5 /* CreateViewController.swift */,
 				3EC895C41D3176E900C83C4B /* ProfileViewController.swift */,
-				3E37BFE21D31C764003933BB /* TabBarController.swift */,
 				BF5B70951D3183540037D187 /* PinCell.swift */,
 				3EC895CA1D31779300C83C4B /* WelcomeViewController.swift */,
 				3EC895CC1D3177A300C83C4B /* LoginViewController.swift */,
@@ -493,7 +490,6 @@
 				BF5B70D41D31B9F70037D187 /* DetailViewController.swift in Sources */,
 				BF5B70961D3183540037D187 /* PinCell.swift in Sources */,
 				3E03383A1D31793700F8E7A5 /* CreateViewController.swift in Sources */,
-				3E37BFE31D31C764003933BB /* TabBarController.swift in Sources */,
 				3EC895CD1D3177A300C83C4B /* LoginViewController.swift in Sources */,
 				3EC895CF1D3177B500C83C4B /* SignUpViewController.swift in Sources */,
 				3E03383C1D3186AE00F8E7A5 /* UIColor+CustomColors.swift in Sources */,

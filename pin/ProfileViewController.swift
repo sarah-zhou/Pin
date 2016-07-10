@@ -61,7 +61,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         tablePins.registerClass(PinCell.self, forCellReuseIdentifier: "pinCell")
         tablePins.rowHeight = 94
         //tablePins.estimatedRowHeight = 90
-                
+        
+        editButton.addTarget(self, action: #selector(editProfile), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(imageView)
         view.addSubview(nameLabel)
         view.addSubview(usernameLabel)
@@ -83,7 +84,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         return data.count
     }
     
-    func editProfile(sender: UIButton) {
+    func editProfile() {
         self.presentViewController(self.navigationVC, animated: true, completion: nil)
     }
     
