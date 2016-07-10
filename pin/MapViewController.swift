@@ -17,7 +17,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var mapView = MKMapView()
     var locationManager: CLLocationManager!
     var userLocation: CLLocationCoordinate2D!
+    var location: CLLocation!
+    var pinLocation: CLLocation!
+    var pinDidChange: Bool!
+
     var pinButton = UIButton()
+    
+    var pins: [MKAnnotation]!
+    var posts = [PFObject]()
+    var post: PFObject!
+    
+    var status = CLLocationManager.authorizationStatus()
+    
 
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
@@ -30,26 +41,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        setUpView()
-        view.addSubview(mapView)
-        view.addSubview(pinButton)
+        fetchPins()
+        
+        for post in posts {
+            let point = self.post["location"] as! PFGeoPoint
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude)
+            self.mapView.addAnnotation(annotation)
+        }
         
         locationManager = CLLocationManager()
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-
-        
-        /*locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationManager.delegate = self;
-        // user activated automatic authorization info mode
-        if status == .NotDetermined || status == .Denied || status == .AuthorizedWhenInUse {
-            // present an alert indicating location authorization required
-            // and offer to take the user to Settings for the app via
-            // UIApplication -openUrl: and UIApplicationOpenSettingsURLString
-            locationManager.requestAlwaysAuthorization()
-            locationManager.requestWhenInUseAuthorization()
-        }*/
-        
-        let status = CLLocationManager.authorizationStatus()
         
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
             locationManager.startUpdatingLocation()
@@ -71,6 +74,68 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
         }
         
+        
+        setUpView()
+        view.addSubview(mapView)
+        view.addSubview(pinButton)
+        
+        if pins != nil {
+            mapView.addAnnotations(pins)
+        }
+        
+        pinDidChange = false
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchPins()
+        
+        var annotationQuery = PFQuery(className: "Pin")
+        var currentLoc = PFGeoPoint(location: locationManager.location)
+        annotationQuery.whereKey("location", nearGeoPoint: currentLoc, withinMiles: 10)
+        annotationQuery.findObjectsInBackgroundWithBlock { (posts, error) -> Void in
+        if error == nil {
+                // The find succeeded.
+                print("Successful query for annotations")
+                let posts = posts! as [PFObject]
+                
+                for post in posts {
+                    let point = post["location"] as! PFGeoPoint
+                    let coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude)
+                    let newPin = Pin.init(title: post["title"] as! String, locationName: "", discipline: "", coordinate: coordinate)
+                    self.mapView.addAnnotation(newPin)
+                }
+            }
+            else {
+                // Log details of the failure
+                print("Error: \(error)")
+            }
+        }
+        
+        if pins != nil {
+            mapView.addAnnotations(pins)
+        }
+        
+        if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+            if let userLocation = locationManager.location?.coordinate {
+                //userLocation = locationManager.location!.coordinate
+                location = locationManager.location
+                
+                //mapview setup to show user location
+                let region = MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1))
+                mapView.setRegion(region, animated: false)
+                
+                mapView.delegate = self
+                mapView.showsUserLocation = true
+                mapView.mapType = MKMapType(rawValue: 0)!
+                mapView.userTrackingMode = MKUserTrackingMode(rawValue: 2)!
+            }
+        }
+        
     }
     
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
@@ -82,7 +147,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
             if CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion.self) {
                 if CLLocationManager.isRangingAvailable() {
-                    let region = MKCoordinateRegionMake(userLocation, MKCoordinateSpanMake(0.1, 0.1))
+                    let region = MKCoordinateRegionMake((locationManager.location?.coordinate)!, MKCoordinateSpanMake(0.1, 0.1))
                     mapView.setRegion(region, animated: false)
                     mapView.delegate = self
                 }
@@ -121,11 +186,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func pinClicked() {
         print("pin dropped")
+        pinLocation = location
         let newPin = Pin.init(title: "Enter Pin Details", locationName: "", discipline: "", coordinate: (locationManager.location?.coordinate)!)
-        
-        
         //SEGUE TO DETAIL VIEW
         mapView.addAnnotation(newPin as MKAnnotation)
+        
+        let vc = CreateViewController()
+        vc.location = pinLocation
+        vc.modalPresentationStyle = .FullScreen
+        vc.modalTransitionStyle = .CoverVertical
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
@@ -136,10 +206,57 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    
+    func fetchPins() {
+        // construct query
+        let query = PFQuery(className: "Pin")
+        //query.whereKey("author", equalTo: PFUser.currentUser()!)
+        query.limit = 20
+    
+        // fetch data asynchronously
+        query.findObjectsInBackgroundWithBlock { (posts: [PFObject]?, error: NSError?) -> Void in
+            if let posts = posts {
+                self.posts = posts
+                //self.ProfileCollectionView.reloadData()
+    
+            } else {
+                print(error?.localizedDescription)
+            }
+        }
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        let annotationQuery = PFQuery(className: "Pin")
+        let currentLoc = PFGeoPoint(location: locationManager.location)
+        annotationQuery.whereKey("location", nearGeoPoint: currentLoc, withinMiles: 10)
+        annotationQuery.findObjectsInBackgroundWithBlock {
+            (posts, error) -> Void in
+            if error == nil {
+                // The find succeeded.
+                print("Successful query for annotations")
+                let posts = posts! as [PFObject]
+                
+                for post in posts {
+                    let point = post["location"] as! PFGeoPoint
+                    let coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude)
+                    let newPin = Pin.init(title: post["title"] as! String, locationName: "", discipline: "", coordinate: coordinate)
+                    self.mapView.addAnnotation(newPin)
+                }
+            }
+            else {
+                // Log details of the failure
+                print("Error: \(error)")
+            }
+        }
+        
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
 }
 
