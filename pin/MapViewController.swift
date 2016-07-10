@@ -68,17 +68,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        if PFUser.currentUser() == nil {
-            print("there is not a current user")
-            print(PFUser.currentUser()?.username)
-            
-            let vc = WelcomeViewController()
-            vc.modalPresentationStyle = .FullScreen
-            vc.modalTransitionStyle = .CoverVertical
-            self.presentViewController(vc, animated: true, completion: nil)
-        }
-    }
+//    override func viewDidAppear(animated: Bool) {
+//        if PFUser.currentUser() == nil {
+//            let vc = WelcomeViewController()
+//            vc.modalPresentationStyle = .FullScreen
+//            vc.modalTransitionStyle = .CoverVertical
+//            self.presentViewController(vc, animated: true, completion: nil)
+//        }
+//    }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {

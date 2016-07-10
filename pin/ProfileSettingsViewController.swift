@@ -189,7 +189,7 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         user?.bio = bioField.text
         user?.email = emailField.text
         
-        user?.saveInBackground()
+        user?.saveInBackgroundWithBlock(nil)
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }

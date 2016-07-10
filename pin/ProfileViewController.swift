@@ -16,16 +16,20 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     var tablePins = UITableView()
     var cell = PinCell()
     var editButton = UIButton()
-    // let navigationVC = UINavigationController(rootViewController: ProfileSettingsViewController())
     
     let cellReuseIdendifier = "pinCell"
+    
+    var user : User?
     
     let data = ["Pin1, Description1", "Pin2, Description2", "Pin3, Description3"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.user = User.currentUser()
+        
         setUpViews()
+        loadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,10 +52,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         editButton.setTitle("Edit", forState: .Normal)
         
         nameLabel.frame = CGRect(x: 0, y: 156, width: 375, height: 21)
-        nameLabel.text = "Rebecca"
+        // nameLabel.text = "Rebecca"
         nameLabel.textAlignment = NSTextAlignment.Center
         usernameLabel.frame = CGRect(x: 0, y: 178, width: 375, height: 21)
-        usernameLabel.text = "@" + "beccawella"
+        // usernameLabel.text = "@" + "beccawella"
         usernameLabel.textColor = UIColor.grayColor()
         usernameLabel.textAlignment = NSTextAlignment.Center
         
@@ -60,7 +64,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         tablePins.dataSource = self
         tablePins.registerClass(PinCell.self, forCellReuseIdentifier: "pinCell")
         tablePins.rowHeight = 94
-        //tablePins.estimatedRowHeight = 90
         
         editButton.addTarget(self, action: #selector(editProfile), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(imageView)
@@ -68,6 +71,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         view.addSubview(usernameLabel)
         view.addSubview(tablePins)
         view.addSubview(editButton)
+    }
+    
+    func loadData() {
+        if user!.name != nil {
+            nameLabel.text = user!.name!
+        }
+        usernameLabel.text = "@\(user!.username!)"
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -85,7 +95,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func editProfile() {
-        // self.presentViewController(self.navigationVC, animated: true, completion: nil)
         let vc = ProfileSettingsViewController()
         vc.modalPresentationStyle = .FullScreen
         vc.modalTransitionStyle = .CoverVertical
