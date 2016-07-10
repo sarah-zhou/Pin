@@ -49,7 +49,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             locationManager.requestWhenInUseAuthorization()
         }*/
         
-        var status = CLLocationManager.authorizationStatus()
+        let status = CLLocationManager.authorizationStatus()
         
         if status == .AuthorizedWhenInUse ||  status == .AuthorizedAlways {
             locationManager.startUpdatingLocation()
@@ -73,8 +73,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
-        var annotations = [mapView.userLocation]
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        let annotations = [mapView.userLocation]
         mapView.showAnnotations(annotations, animated: true)
     }
     
@@ -91,13 +91,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         userLocation = newLocation.coordinate
         print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
         
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? Pin {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -125,7 +125,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         //SEGUE TO DETAIL VIEW
-        mapView.addAnnotation(newPin as! MKAnnotation)
+        mapView.addAnnotation(newPin as MKAnnotation)
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
