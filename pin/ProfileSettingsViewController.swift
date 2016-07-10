@@ -36,6 +36,7 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         super.viewDidLoad()
         setUpView()
         loadInfo()
+            
     }
     
     func setUpView() {

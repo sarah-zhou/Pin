@@ -22,11 +22,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     var user : User?
     
     let data = ["Pin1, Description1", "Pin2, Description2", "Pin3, Description3"]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.user = User.currentUser()
+        self.navigationController?.navigationBarHidden = true
         
         setUpViews()
         loadData()
@@ -47,10 +48,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         imageView.clipsToBounds = true
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         
-        editButton.frame = CGRect(x: 320, y: 22, width: 50, height: 30)
-        editButton.backgroundColor = UIColor.grayColor()
-        editButton.setTitle("Edit", forState: .Normal)
-        
         nameLabel.frame = CGRect(x: 0, y: 156, width: 375, height: 21)
         // nameLabel.text = "Rebecca"
         nameLabel.textAlignment = NSTextAlignment.Center
@@ -65,7 +62,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         tablePins.registerClass(PinCell.self, forCellReuseIdentifier: "pinCell")
         tablePins.rowHeight = 94
         
+        editButton.frame = CGRect(x: 320, y: 22, width: 50, height: 30)
+        editButton.backgroundColor = UIColor.grayColor()
+        editButton.setTitle("Edit", forState: .Normal)
         editButton.addTarget(self, action: #selector(editProfile), forControlEvents: UIControlEvents.TouchUpInside)
+        
         view.addSubview(imageView)
         view.addSubview(nameLabel)
         view.addSubview(usernameLabel)
@@ -94,12 +95,19 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         return data.count
     }
     
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("ShowDetailVC", sender: nil)
+    }
+    
     func editProfile() {
+        // self.presentViewController(self.navigationVC, animated: true, completion: nil)
         let vc = ProfileSettingsViewController()
         vc.modalPresentationStyle = .FullScreen
         vc.modalTransitionStyle = .CoverVertical
         self.presentViewController(vc, animated: true, completion: nil)
     }
+    
     
     /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetailViewController" {

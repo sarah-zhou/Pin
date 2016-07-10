@@ -24,6 +24,7 @@
 		3EC895CB1D31779400C83C4B /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC895CA1D31779300C83C4B /* WelcomeViewController.swift */; };
 		3EC895CD1D3177A300C83C4B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC895CC1D3177A300C83C4B /* LoginViewController.swift */; };
 		3EC895CF1D3177B500C83C4B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC895CE1D3177B500C83C4B /* SignUpViewController.swift */; };
+		59AEB7EC1D3257020081403A /* ReplaceRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59AEB7EB1D3257020081403A /* ReplaceRootVC.swift */; };
 		BC0FEA97519C039DC3CD0F40 /* Pods_pin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F5D1F495063B5B4A439A12 /* Pods_pin.framework */; };
 		BF5B70961D3183540037D187 /* PinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5B70951D3183540037D187 /* PinCell.swift */; };
 		BF5B70D41D31B9F70037D187 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5B70D31D31B9F70037D187 /* DetailViewController.swift */; };
@@ -74,6 +75,7 @@
 		3EC895CC1D3177A300C83C4B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3EC895CE1D3177B500C83C4B /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		43F5D1F495063B5B4A439A12 /* Pods_pin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59AEB7EB1D3257020081403A /* ReplaceRootVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaceRootVC.swift; sourceTree = "<group>"; };
 		81ED1C61F5F39EB02FDDB858 /* Pods-pin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pin/Pods-pin.debug.xcconfig"; sourceTree = "<group>"; };
 		835A6335D9684C5CFC26C5E0 /* Pods_pinUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pinUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		992FB11F0173F6E9F5F084A6 /* Pods_pinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 				3EC895C81D31771B00C83C4B /* SearchViewController.swift */,
 				3EC895C61D31770600C83C4B /* MapViewController.swift */,
 				BF5B70D31D31B9F70037D187 /* DetailViewController.swift */,
+				59AEB7EB1D3257020081403A /* ReplaceRootVC.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 			files = (
 				BF5B70D41D31B9F70037D187 /* DetailViewController.swift in Sources */,
 				BF5B70961D3183540037D187 /* PinCell.swift in Sources */,
+				59AEB7EC1D3257020081403A /* ReplaceRootVC.swift in Sources */,
 				3E03383A1D31793700F8E7A5 /* CreateViewController.swift in Sources */,
 				3EC895CD1D3177A300C83C4B /* LoginViewController.swift in Sources */,
 				3EC895CF1D3177B500C83C4B /* SignUpViewController.swift in Sources */,

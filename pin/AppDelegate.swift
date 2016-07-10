@@ -17,24 +17,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.translucent = true
+        navBarAppearance.shadowImage = UIImage()
+        navBarAppearance.backgroundColor = UIColor.clearColor()
+//        
+//        navBarAppearance.barTintColor = UIColor.clearColor()
+//        navBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.clearColor()]
+        
+
+        
         // window?.rootViewController = WelcomeViewController()
         
-        let search = SearchViewController()
-        let map = MapViewController()
-        let profile = ProfileViewController()
-        
-        search.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home"), tag: 0)
-        map.tabBarItem = UITabBarItem(title: "Map", image: UIImage(named: "map"), tag: 1)
-        profile.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), tag: 2)
-        
-        let vcs = [search, map, profile]
-        tabBar.viewControllers = vcs
-        tabBar.selectedIndex = 1
-        tabBar.modalPresentationStyle = .FullScreen
-        tabBar.modalTransitionStyle = .CoverVertical
-        
+//        
+//        let search = SearchViewController()
+//        let map = MapViewController()
+//        let profile = ProfileViewController()
+//        
+//        let navigationController = UINavigationController(rootViewController: profile)
+//
+//        
+//        search.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home"), tag: 0)
+//        map.tabBarItem = UITabBarItem(title: "Map", image: UIImage(named: "map"), tag: 1)
+//        navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "profile"), tag: 2)
+//        
+//        let vcs = [search, map, navigationController]
+//        tabBar.viewControllers = vcs
+//        tabBar.selectedIndex = 1
+//        tabBar.modalPresentationStyle = .FullScreen
+//        tabBar.modalTransitionStyle = .CoverVertical
+//
         User.registerSubclass()
-        
+
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.
         // clientKey is not used on Parse open source unless explicitly configured
@@ -45,14 +59,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.server = "http://pin-hackfest.herokuapp.com/parse"
             })
         )
-        
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = WelcomeViewController()
-        self.window?.makeKeyAndVisible()
-
+//
+//        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        self.window?.rootViewController = WelcomeViewController()
+//        self.window?.makeKeyAndVisible()
+//
         if let _ = PFUser.currentUser() {
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            self.window?.rootViewController = tabBar
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("tabBarID")
+            self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
         }
         
