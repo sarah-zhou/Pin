@@ -17,11 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.translucent = true
-        navBarAppearance.shadowImage = UIImage()
-        navBarAppearance.backgroundColor = UIColor.clearColor()
-//        
+//       let navBarAppearance = UINavigationBar.appearance()
+//        navBarAppearance.translucent = true
+//        navBarAppearance.shadowImage = UIImage()
+//        navBarAppearance.backgroundColor = UIColor.clearColor()
+//
 //        navBarAppearance.barTintColor = UIColor.clearColor()
 //        navBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.clearColor()]
         

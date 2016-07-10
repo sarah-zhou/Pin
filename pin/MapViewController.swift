@@ -33,13 +33,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
         pinButton.setBackgroundImage(UIImage(named: "logo"), forState: UIControlState.Normal)
-        pinButton.frame = CGRect(x: 128, y: 482, width: 60, height: 60)
+        pinButton.frame = CGRect(x: 143, y: 482, width: 90, height: 90)
+//        pinButton.layer.borderWidth = 1.0
+//        pinButton.layer.borderColor = UIColor.cyan().CGColor
         pinButton.addTarget(self, action: #selector(pinClicked), forControlEvents: UIControlEvents.TouchUpInside)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.navigationController?.navigationBarHidden = true
         
         fetchPins()
         
@@ -239,7 +243,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 for post in posts {
                     let point = post["location"] as! PFGeoPoint
                     let coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude)
-                    let newPin = Pin.init(title: post["title"] as! String, locationName: "", discipline: "", coordinate: coordinate)
+                    let newPin = Pin.init(title: post["title"] as! String, locationName: post["description"] as! String, discipline: "", coordinate: coordinate)
                     self.mapView.addAnnotation(newPin)
                 }
             }
@@ -252,10 +256,44 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        //let vc = DetailViewController()
+        //print(view.annotation!.coordinate)
+        
+       // selectedLocation = view.annotation!.coordinate
+        
+        //vc.pinLocation = view.annotation!.coordinate
+        performSegueWithIdentifier("ShowDetailVC", sender: nil)
+
+    }
+    
+   
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+  
+   /* var selectedLocation: CLLocationCoordinate2D!
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowDetailVC" {
+            
+            let selectedLoc = selectedLocation
+            let detailViewController = segue.destinationViewController as! DetailViewController
+            
+            detailViewController.pinLocation = selectedLoc
+        }
+        
+        
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }*/
     
     
 }

@@ -102,7 +102,7 @@
         <!--Detail View Controller-->
         <scene sceneID="WQf-Cq-yEg">
             <objects>
-                <viewController id="gAn-gh-uuP" customClass="DetailViewController" customModule="pin" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="gAn-gh-uuP" customClass="DetailViewController" customModule="pin" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sZM-kc-fBR"/>
                         <viewControllerLayoutGuide type="bottom" id="alF-vw-5ge"/>
@@ -136,9 +136,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B7G-wl-wl2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4373" y="1056"/>
+            <point key="canvasLocation" x="5185" y="1056"/>
         </scene>
-        <!--Home-->
+        <!--Map View Controller-->
         <scene sceneID="wHg-0S-5om">
             <objects>
                 <viewController id="pFF-CM-Z3I" customClass="MapViewController" customModule="pin" customModuleProvider="target" sceneMemberID="viewController">
@@ -151,11 +151,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="Home" image="home" id="lG3-xl-ZLw"/>
+                    <navigationItem key="navigationItem" id="fVv-wB-eCJ"/>
+                    <connections>
+                        <segue destination="gAn-gh-uuP" kind="show" identifier="ShowDetailVC" id="bnn-y2-S2f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNS-Xz-PbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2662" y="1297"/>
+            <point key="canvasLocation" x="3474" y="1297"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="fo9-J7-5Wl">
@@ -189,9 +192,14 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="0.3411764705882353" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="selectedImageTintColor" red="1" green="0.3411764706" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="0.3411764705882353" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
-                        <segue destination="pFF-CM-Z3I" kind="relationship" relationship="viewControllers" id="cTb-EG-aUC"/>
+                        <segue destination="xGu-jh-Hxa" kind="relationship" relationship="viewControllers" id="cTb-EG-aUC"/>
                         <segue destination="sdm-Jf-zc4" kind="relationship" relationship="viewControllers" id="avR-xk-K66"/>
                         <segue destination="Sk3-fH-n7c" kind="relationship" relationship="viewControllers" id="rjP-d1-7zD"/>
                     </connections>
@@ -238,6 +246,25 @@
             </objects>
             <point key="canvasLocation" x="2662" y="609"/>
         </scene>
+        <!--Home-->
+        <scene sceneID="BtZ-vG-ujl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xGu-jh-Hxa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" tag="1" title="Home" image="home" id="lG3-xl-ZLw"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eIz-bD-pea">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pFF-CM-Z3I" kind="relationship" relationship="rootViewController" id="L1P-FZ-PG6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N02-nR-5og" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2662" y="1297"/>
+        </scene>
     </scenes>
     <resources>
         <image name="home" width="44" height="44"/>
@@ -245,9 +272,9 @@
         <image name="search" width="44" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4yC-KL-1wU"/>
         <segue reference="Vbj-h3-T6w"/>
         <segue reference="zIX-ra-WJe"/>
+        <segue reference="4yC-KL-1wU"/>
         <segue reference="bdy-IH-I6A"/>
     </inferredMetricsTieBreakers>
 </document>
