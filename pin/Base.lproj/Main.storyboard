@@ -130,10 +130,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="custom" identifier="LogOut" customClass="ReplaceRootVC" customModule="pin" customModuleProvider="target" id="LPX-ds-Kug"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B7G-wl-wl2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4325" y="992"/>
+            <point key="canvasLocation" x="4373" y="1056"/>
         </scene>
         <!--Home-->
         <scene sceneID="wHg-0S-5om">
@@ -148,7 +151,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="Home" id="lG3-xl-ZLw"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Home" image="home" id="lG3-xl-ZLw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNS-Xz-PbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,6 +187,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="0.3411764705882353" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="1" green="0.3411764706" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="pFF-CM-Z3I" kind="relationship" relationship="viewControllers" id="cTb-EG-aUC"/>
@@ -199,7 +204,7 @@
         <scene sceneID="MCw-C5-reB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sdm-Jf-zc4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" id="LrW-Zj-FAf"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="search" id="LrW-Zj-FAf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="CIV-RH-0zg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -218,7 +223,7 @@
         <scene sceneID="lOn-Ey-owi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Sk3-fH-n7c" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="2" title="Profile" id="GgW-yj-aTH"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Profile" image="profile" id="GgW-yj-aTH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WcH-gD-NdS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -234,10 +239,15 @@
             <point key="canvasLocation" x="2662" y="609"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="home" width="44" height="44"/>
+        <image name="profile" width="44" height="44"/>
+        <image name="search" width="44" height="44"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vbj-h3-T6w"/>
-        <segue reference="4dh-q0-Rcg"/>
-        <segue reference="MB9-U5-tNB"/>
         <segue reference="4yC-KL-1wU"/>
+        <segue reference="Vbj-h3-T6w"/>
+        <segue reference="zIX-ra-WJe"/>
+        <segue reference="bdy-IH-I6A"/>
     </inferredMetricsTieBreakers>
 </document>

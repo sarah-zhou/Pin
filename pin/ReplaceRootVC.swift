@@ -10,6 +10,7 @@ import UIKit
 
 class ReplaceRootVC: UIStoryboardSegue {
     override func perform() {
+        
         (UIApplication.sharedApplication().delegate as? AppDelegate)?.window?.rootViewController = destinationViewController
     }
 }

@@ -92,8 +92,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         fetchPins()
         
-        var annotationQuery = PFQuery(className: "Pin")
-        var currentLoc = PFGeoPoint(location: locationManager.location)
+        let annotationQuery = PFQuery(className: "Pin")
+        let currentLoc = PFGeoPoint(location: locationManager.location)
         annotationQuery.whereKey("location", nearGeoPoint: currentLoc, withinMiles: 10)
         annotationQuery.findObjectsInBackgroundWithBlock { (posts, error) -> Void in
         if error == nil {

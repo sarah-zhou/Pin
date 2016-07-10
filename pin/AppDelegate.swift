@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.window?.makeKeyAndVisible()
 //
         if let _ = PFUser.currentUser() {
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
             let initialViewController = storyboard.instantiateViewControllerWithIdentifier("tabBarID")

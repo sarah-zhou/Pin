@@ -201,10 +201,16 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
     
     func logoutClicked() {
         PFUser.logOutInBackgroundWithBlock { (error: NSError?) in
-            let vc = WelcomeViewController()
-            vc.modalPresentationStyle = .FullScreen
-            vc.modalTransitionStyle = .CoverVertical
-            self.presentViewController(vc, animated: true, completion: nil)
+            
+            let initialVC = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+            (UIApplication.sharedApplication().delegate as? AppDelegate)?.window?.rootViewController = initialVC
+            
+            
+//            self.performSegueWithIdentifier("LogOut", sender: nil)
+//            let vc = WelcomeViewController()
+//            vc.modalPresentationStyle = .FullScreen
+//            vc.modalTransitionStyle = .CoverVertical
+//            self.presentViewController(vc, animated: true, completion: nil)
         }
     }
     
