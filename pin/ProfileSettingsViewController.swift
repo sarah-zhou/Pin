@@ -49,14 +49,16 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         emailField.frame = CGRect(x: 58, y: 446, width: 297, height: 30)
         
         privateInfoLabel.frame = CGRect(x: 20, y: 417, width: 335, height: 21)
-        nameIcon.frame = CGRect(x: 20, y: 281, width: 30, height: 30)
-        usernameIcon.frame = CGRect(x: 20, y: 319, width: 30, height: 30)
-        bioIcon.frame = CGRect(x: 20, y: 357, width: 30, height: 30)
-        emailIcon.frame = CGRect(x: 20, y: 446, width: 30, height: 30)
+        nameIcon.frame = CGRect(x: 20, y: 281, width: 25, height: 25)
+        usernameIcon.frame = CGRect(x: 20, y: 319, width: 25, height: 25)
+        bioIcon.frame = CGRect(x: 20, y: 357, width: 25, height: 25)
+        emailIcon.frame = CGRect(x: 20, y: 446, width: 25, height: 25)
         
         saveChanges.frame = CGRect(x: 20, y: 490, width: 335, height: 30)
         logout.frame = CGRect(x: 0, y: 617, width: 375, height: 50)
         
+        profilePic.layer.borderWidth = 1.0
+        profilePic.layer.borderColor = UIColor.darkGray().CGColor
         profilePic.layer.cornerRadius = profilePic.frame.height/2
         profilePic.clipsToBounds = true
         
@@ -116,6 +118,10 @@ class ProfileSettingsViewController: UIViewController, UITextFieldDelegate, UIIm
         view.addSubview(usernameField)
         view.addSubview(bioField)
         view.addSubview(emailField)
+        
+        view.addSubview(changeProfPic)
+        view.addSubview(saveChanges)
+        view.addSubview(logout)
     }
     
     func loadInfo() {
