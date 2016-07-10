@@ -47,8 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = self.tabBar
+        self.window?.rootViewController = WelcomeViewController()
         self.window?.makeKeyAndVisible()
+
+        if let _ = PFUser.currentUser() {
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            self.window?.rootViewController = tabBar
+            self.window?.makeKeyAndVisible()
+        }
         
         return true
     }

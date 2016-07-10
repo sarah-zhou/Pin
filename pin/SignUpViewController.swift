@@ -128,7 +128,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             newUser.signUpInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                 if success {
                     print("Created a user")
-                    self.view.window!.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = appDelegate.tabBar
                 } else {
                     print(error?.localizedDescription)
                     if error?.code == 202 {
