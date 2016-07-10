@@ -25,7 +25,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var pins: [MKAnnotation]!
     var posts = [PFObject]()
     var post: PFObject!
-    
+
     
     func setUpView() {
         mapView.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
@@ -37,7 +37,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+    
         fetchPins()
         
         for post in posts {
@@ -95,8 +95,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         pinDidChange = false
         
     }
-    
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -172,7 +171,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
         userLocation = newLocation.coordinate
         location = newLocation
-        
+
         //print("present location : \(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)")
         
     }
@@ -204,7 +203,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         pinLocation = location
         var newPin = Pin.init(title: "", locationName: "", discipline: "", coordinate: pinLocation.coordinate)
         //mapView.addAnnotation(newPin as! MKAnnotation)
-        
+
         //SEGUE TO DETAIL VIEW
         let vc = CreateViewController()
         vc.location = pinLocation
@@ -213,8 +212,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.presentViewController(vc, animated: true, completion: nil)
         
         //mapView.removeAnnotation(newPin as! MKAnnotation)
-        
-        
+
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
@@ -268,6 +266,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     //                    let annotation = MKPointAnnotation()
                     //                    annotation.coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude)
                     //                    self.mapView.addAnnotation(annotation)
+
                     for post in posts {
                         let point = post["location"] as! PFGeoPoint
                         let coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude)
@@ -276,7 +275,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     }
                     
                 }
-                
+
             } else {
                 // Log details of the failure
                 print("Error: \(error)")
