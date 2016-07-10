@@ -61,24 +61,24 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         usernameLabel.textColor = UIColor.grayColor()
         usernameLabel.textAlignment = NSTextAlignment.Center
         
-        bioLabel.frame = CGRect(x: 0, y: 190, width: 375, height: 21)
+        bioLabel.frame = CGRect(x: 0, y: 198, width: 375, height: 21)
         bioLabel.textColor = UIColor.grayColor()
         bioLabel.textAlignment = NSTextAlignment.Center
         
-        tablePins.frame = CGRect(x: 0, y: 205, width: 375, height: 460)
+        tablePins.frame = CGRect(x: 0, y: 220, width: 375, height: 460)
         tablePins.delegate = self
         tablePins.dataSource = self
         tablePins.registerClass(PinCell.self, forCellReuseIdentifier: "pinCell")
         tablePins.rowHeight = 94
         
-        editButton.frame = CGRect(x: 320, y: 22, width: 50, height: 30)
-        editButton.backgroundColor = UIColor.grayColor()
-        editButton.setTitle("Edit", forState: .Normal)
+        editButton.frame = CGRect(x: 335, y: 22, width: 30, height: 30)
+        editButton.setImage(UIImage(named: "settings"), forState: .Normal)
         editButton.addTarget(self, action: #selector(editProfile), forControlEvents: UIControlEvents.TouchUpInside)
         
         view.addSubview(imageView)
         view.addSubview(nameLabel)
         view.addSubview(usernameLabel)
+        view.addSubview(bioLabel)
         view.addSubview(tablePins)
         view.addSubview(editButton)
     }
@@ -93,7 +93,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         if user!["name"] != nil {
             nameLabel.text = user!["name"] as! String
         }
-        usernameLabel.text = user!["username"] as! String
+        usernameLabel.text = "@\(user!["username"] as! String)"
         usernameLabel.textColor = UIColor.lightGrayColor()
         if user!["bio"] != nil {
             bioLabel.text = user!["bio"] as! String
